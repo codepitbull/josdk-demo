@@ -12,6 +12,8 @@ val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 val bouncyCastleVersion: String by project
+val testcontainersVersion: String by project
+val assertjVersion: String by project
 
 dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
@@ -20,6 +22,11 @@ dependencies {
     implementation("io.quarkus:quarkus-arc")
     implementation("org.bouncycastle:bcpkix-jdk18on:${bouncyCastleVersion}")
     testImplementation("io.quarkus:quarkus-junit5")
+
+
+    testImplementation("org.assertj:assertj-core:${assertjVersion}")
+    testImplementation("org.testcontainers:junit-jupiter:${testcontainersVersion}")
+    testImplementation("org.testcontainers:k3s:${testcontainersVersion}")
 }
 
 group = "de.codepitbull.josdk"
