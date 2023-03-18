@@ -8,6 +8,9 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.k3s.K3sContainer;
 import org.testcontainers.utility.DockerImageName;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.Map;
 
@@ -20,8 +23,16 @@ public class K3sTestResourceLifecycleManager implements QuarkusTestResourceLifec
     public Map<String, String> start() {
         k3s = new K3sContainer(DockerImageName.parse("rancher/k3s:v1.22.13-k3s1"));
         k3s.start();
-        kubernetesClient = new KubernetesClientBuilder().withConfig(Serialization.unmarshal(k3s.getKubeConfigYaml(), Config.class)).build();
-        return Collections.emptyMap();
+        try {
+          File tempFile = File.createTempFile("kubeconfig-", ".yaml");
+          tempFile.deleteOnExit();
+          Files.write(tempFile.toPath(), k3s.getKubeConfigYaml().getBytes());
+          kubernetesClient = new KubernetesClientBuilder().withConfig(Serialization.unmarshal(k3s.getKubeConfigYaml(), Config.class)).build();
+          System.setProperty("kubeconfig", tempFile.getAbsolutePath());
+          return Collections.emptyMap();
+        } catch (IOException ioe) {
+          throw new RuntimeException(ioe);
+        }
     }
 
     @Override
