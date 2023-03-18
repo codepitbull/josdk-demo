@@ -12,7 +12,6 @@ public class DemoReconciler implements Reconciler<DemoResource>, ErrorStatusHand
 
     @Override
     public UpdateControl<DemoResource> reconcile(DemoResource resource, Context<DemoResource> context) throws Exception {
-        System.out.println("FUUCK");
         return UpdateControl.noUpdate();
     }
 }
