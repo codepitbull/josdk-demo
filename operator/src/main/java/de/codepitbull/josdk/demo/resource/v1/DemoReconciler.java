@@ -1,8 +1,6 @@
 package de.codepitbull.josdk.demo.resource.v1;
 
-import de.codepitbull.josdk.demo.resource.v1.dependent.DependentConfigMap;
 import de.codepitbull.josdk.demo.resource.v1.dependent.DependentDeployment;
-import de.codepitbull.josdk.demo.resource.v1.dependent.DependentService;
 import io.javaoperatorsdk.operator.api.reconciler.*;
 import io.javaoperatorsdk.operator.api.reconciler.dependent.Dependent;
 import org.jboss.logging.Logger;
@@ -12,12 +10,6 @@ import static de.codepitbull.josdk.demo.resource.v1.Constants.ANNOTATION_IGNORE_
 @ControllerConfiguration(dependents = {
   @Dependent(
     type = DependentDeployment.class
-  ),
-  @Dependent(
-    type = DependentConfigMap.class
-  ),
-  @Dependent(
-    type = DependentService.class
   )
 })
 public class DemoReconciler implements Reconciler<DemoResource>, ErrorStatusHandler<DemoResource> {
