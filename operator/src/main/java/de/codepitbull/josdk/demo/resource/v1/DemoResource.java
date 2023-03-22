@@ -1,4 +1,4 @@
-package de.codepitbull.josdk.demo.resource;
+package de.codepitbull.josdk.demo.resource.v1;
 
 import io.fabric8.kubernetes.api.model.Namespaced;
 import io.fabric8.kubernetes.client.CustomResource;

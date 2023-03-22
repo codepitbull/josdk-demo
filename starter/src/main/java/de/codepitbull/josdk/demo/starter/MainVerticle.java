@@ -9,7 +9,7 @@ public class MainVerticle extends AbstractVerticle {
   public void start(Promise<Void> startPromise) throws Exception {
     vertx.createHttpServer().requestHandler(req -> {
       vertx.fileSystem()
-        .readFile("/mapped")
+        .readFile("/mapped/message")
         .andThen(res -> {
           if (res.failed()) {
             req.response()

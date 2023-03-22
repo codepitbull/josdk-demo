@@ -1,0 +1,6 @@
+apiVersion: de.codepitbull.josdk.demo/v1
+kind: DemoResource
+metadata:
+  name: demo1
+spec:
+  description: "Coming from a ConfgiMap!"
